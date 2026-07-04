@@ -1,4 +1,4 @@
-Transformo Docs Application: Empowering Machine-Readable Document Management System
+#Transformo Docs Application: Empowering Machine-Readable Document Management System
 
 Transformo Docs Application is an intelligent web-based document management system designed to convert traditional paper documents and scanned files into machine-readable digital content using Optical Character Recognition (OCR). The application enables users to upload, process, organize, search, and securely manage documents through a simple and user-friendly interface.
 The system automates the extraction of text from PDFs and image-based documents, reducing manual data entry and improving the efficiency of document handling. By transforming unstructured documents into searchable and editable digital information, Transformo Docs enhances accessibility, accuracy, and productivity for individuals and organizations.
