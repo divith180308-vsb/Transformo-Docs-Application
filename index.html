@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transformo Docs - Empowering Machine Readable Document Management System</title>
+  <meta name="description" content="College project representing a document ingestion, OCR parsing, schema mapping and machine-readable data export management system.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Header & Navigation -->
+    <header class="main-header">
+      <div class="brand-container">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">TRANSFORMO DOCS</h1>
+          <p class="brand-subtitle">Machine Readable Document Management</p>
+        </div>
+      </div>
+
+      <nav class="main-nav">
+        <button class="nav-tab active" data-tab="dashboard" id="tab-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+          </svg>
+          Dashboard
+        </button>
+        <button class="nav-tab" data-tab="ocr" id="tab-ocr">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376A8.965 8.965 0 0012 12.75a8.965 8.965 0 00-3.75 4.5m7.5 0a5.99 5.99 0 00-7.5 0M15.75 21a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Ingest & OCR
+        </button>
+        <button class="nav-tab" data-tab="schema" id="tab-schema">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+          </svg>
+          Schema Mapper
+        </button>
+        <button class="nav-tab" data-tab="export" id="tab-export">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          Export Hub
+        </button>
+      </nav>
+
+      <div class="system-status">
+        <span class="status-dot"></span>
+        <span id="system-status-text">SYSTEM: ONLINE</span>
+      </div>
+    </header>
+
+    <!-- 1. DASHBOARD VIEW -->
+    <main id="view-dashboard" class="view-panel active">
+      
+      <!-- Statistics Row -->
+      <section class="dashboard-grid">
+        <div class="glass-card metric-card">
+          <span class="metric-label">Total Ingested</span>
+          <span class="metric-value" id="metric-total-docs">0</span>
+          <div class="metric-trend trend-up">
+            <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px;height:14px;">
+              <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75z" clip-rule="evenodd" style="transform: rotate(180deg); transform-origin: center;" />
+            </svg>
+            <span>+12.4% this week</span>
+          </div>
+        </div>
+
+        <div class="glass-card metric-card">
+          <span class="metric-label">Avg Extraction Accuracy</span>
+          <span class="metric-value" id="metric-accuracy">0%</span>
+          <div class="metric-trend trend-up">
+            <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px;height:14px;">
+              <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75z" clip-rule="evenodd" style="transform: rotate(180deg); transform-origin: center;" />
+            </svg>
+            <span>+1.2% model refinement</span>
+          </div>
+        </div>
+
+        <div class="glass-card metric-card">
+          <span class="metric-label">Successfully Processed</span>
+          <span class="metric-value" id="metric-processed">0</span>
+          <div class="metric-trend trend-up">
+            <svg viewBox="0 0 20 20" fill="currentColor" style="width:14px;height:14px;">
+              <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75z" clip-rule="evenodd" style="transform: rotate(180deg); transform-origin: center;" />
+            </svg>
+            <span>100% completion rate</span>
+          </div>
+        </div>
+
+        <div class="glass-card metric-card">
+          <span class="metric-label">Verification Errors</span>
+          <span class="metric-value" id="metric-failed">0</span>
+          <div class="metric-trend trend-down">
+            <span>No warnings detected</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Visualizations Grid -->
+      <div class="dashboard-layout-main">
+        
+        <!-- Left Side: Ingestion rate bar chart -->
+        <section class="glass-card">
+          <div class="glass-card-header">
+            <h3 class="card-title-tech" id="chart-telemetry-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+              Weekly Ingestion Telemetry
+            </h3>
+            <span class="badge-status processed">Real-time sync</span>
+          </div>
+          <div class="chart-container" id="accuracy-bar-chart">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+
+        <!-- Right Side: Classification Distribution -->
+        <section class="glass-card">
+          <div class="glass-card-header">
+            <h3 class="card-title-tech">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+              </svg>
+              Document Mix
+            </h3>
+          </div>
+          <div id="distribution-donut-chart">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </section>
+      </div>
+
+      <!-- Recent Log list -->
+      <section class="glass-card">
+        <div class="glass-card-header">
+          <h3 class="card-title-tech">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.375m0 3h-3.375m9-10.5V18c0 1.242-1.008 2.25-2.25 2.25H6.75A2.25 2.25 0 014.5 18V6c0-1.242 1.008-2.25 2.25-2.25h9.124m.75 0a8.967 8.967 0 013.06 1.3M8.25 4.5l.397-1.397a.75.75 0 011.025-.522l3.32 1.107a.75.75 0 01.522 1.025L13.125 6h-4.875z" />
+            </svg>
+            Ingestion Pipeline Activity Log
+          </h3>
+        </div>
+        <div class="activity-list" id="recent-activity-list">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 2. INGEST & OCR VIEW -->
+    <main id="view-ocr" class="view-panel">
+      <div class="ocr-split-layout">
+        
+        <!-- Left: Upload zone & document list -->
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          
+          <!-- Drop Zone -->
+          <div class="glass-card drop-zone" id="ocr-drop-zone">
+            <input type="file" id="ocr-file-input" class="hidden" accept=".jpg,.png,.pdf,.txt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+            </svg>
+            <div class="drop-zone-title">Upload Documents</div>
+            <div class="drop-zone-desc">Drag & Drop PDF, JPG, or PNG files, or click to browse. Type keywords like "receipt", "invoice", "id", "transcript" in your filename to load matching mockups!</div>
+          </div>
+
+          <!-- Document List Sidebar -->
+          <div class="glass-card" style="flex:1;">
+            <div class="glass-card-header">
+              <h3 class="card-title-tech">Ingested Queue</h3>
+            </div>
+            <div class="activity-list" id="ocr-doc-sidebar-list" style="max-height: 280px;">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Scanner display & fields inspector -->
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          
+          <div class="glass-card" style="flex:1;">
+            <div class="glass-card-header">
+              <h3 class="card-title-tech" id="ocr-meta-title">No File Selected</h3>
+              <div>
+                <span class="mr-2" id="ocr-meta-size" style="font-size: 0.8rem; color: var(--text-muted);">0 KB</span>
+                <span class="badge-status processed" id="ocr-meta-accuracy">0% Accuracy</span>
+              </div>
+            </div>
+
+            <!-- Optical Scanner Screen Container -->
+            <div class="document-viewer-panel">
+              <div class="scanner-laser" id="ocr-scanner-laser"></div>
+              <div id="ocr-visual-preview" style="width:100%; display:flex; justify-content:center;">
+                <!-- HTML Mock Paper rendered here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- OCR raw and editable output -->
+          <div class="ocr-split-layout" style="grid-template-columns: 1fr 1.25fr;">
+            
+            <!-- Raw OCR stdout terminal -->
+            <div class="glass-card" style="padding:1rem;">
+              <div class="card-title-tech mb-2" style="font-size:0.8rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                </svg>
+                Raw String stdout
+              </div>
+              <pre id="ocr-raw-text-console" style="font-family: var(--font-code); font-size:0.7rem; color:var(--text-muted); background:rgba(0,0,0,0.3); padding:0.75rem; border-radius:var(--radius-sm); height: 180px; overflow-y:auto; white-space:pre-wrap; border: 1px solid var(--glass-border);"></pre>
+            </div>
+
+            <!-- Parsed Metadata table editor -->
+            <div class="glass-card" style="padding:1rem;">
+              <div class="card-title-tech mb-2" style="font-size:0.8rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                </svg>
+                Extracted Field Editor
+              </div>
+              <div style="height: 180px; overflow-y:auto; border:1px solid var(--glass-border); border-radius:var(--radius-sm);">
+                <table class="table-glass">
+                  <thead>
+                    <tr>
+                      <th>Key Tag</th>
+                      <th>Parsed Value</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ocr-extracted-fields-tbody">
+                    <!-- Loaded via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- 3. SCHEMA MAPPER VIEW -->
+    <main id="view-schema" class="view-panel">
+      <div class="glass-card" style="padding: 1.5rem 2rem;">
+        <h2 class="card-title-tech" style="font-size:1.4rem; margin-bottom:0.5rem;">Data Mapping & Transformation Engine</h2>
+        <p style="color:var(--text-muted); font-size:0.9rem;">Map raw unstructured tags captured during OCR ingestion into normalized, standard corporate keys. Set cast rules and transformation operations to build consistent machine-readable data structures.</p>
+        
+        <div class="flex-row-center mt-3">
+          <label for="schema-template-selector" style="font-size:0.85rem; font-weight:600; text-transform:uppercase; color:var(--text-muted);">Active Template:</label>
+          <select id="schema-template-selector" class="schema-select" style="max-width:240px;">
+            <option value="invoice">Invoice Template</option>
+            <option value="receipt">Receipt Template</option>
+            <option value="id_card">Identity Card Template</option>
+            <option value="transcript">Academic Transcript</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="ocr-split-layout" style="grid-template-columns: 1.35fr 1fr;">
+        
+        <!-- Left: Mapping table rows -->
+        <div class="glass-card">
+          <div class="glass-card-header">
+            <h3 class="card-title-tech">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+              </svg>
+              Transformation Configuration Rules
+            </h3>
+          </div>
+          
+          <div class="schema-grid-container">
+            <div style="display:grid; grid-template-columns:1.25fr 1fr 1fr 1fr 40px; padding:0 0.75rem; font-size:0.75rem; text-transform:uppercase; font-weight:700; color:var(--text-muted);">
+              <div>Target DB Key</div>
+              <div>Source OCR Key</div>
+              <div>Target Type</div>
+              <div>Transformation Rule</div>
+              <div></div>
+            </div>
+            
+            <!-- Rows container -->
+            <div id="schema-rows-container" style="display:flex; flex-direction:column; gap:0.75rem;">
+              <!-- Loaded via JS -->
+            </div>
+          </div>
+
+          <div class="schema-controls">
+            <button id="btn-add-schema-row" class="btn-outline">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Add Target Key
+            </button>
+            <span style="font-size:0.75rem; color:var(--text-muted);">Config automatically applies to all matching files.</span>
+          </div>
+
+        </div>
+
+        <!-- Right: Sandbox code preview -->
+        <div class="glass-card code-sandbox-panel" style="justify-content: stretch;">
+          <div style="display:flex; flex-direction:column;">
+            <div class="editor-header">
+              <span class="editor-lang">
+                <span class="status-dot"></span>
+                LIVE COMPILED SCHEMA OUTPUT
+              </span>
+              <span style="font-size:0.7rem; color:var(--text-muted);">JSON</span>
+            </div>
+            <pre class="code-container" id="schema-sandbox-output">// Schema Output</pre>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- 4. EXPORT HUB VIEW -->
+    <main id="view-export" class="view-panel">
+      
+      <!-- Top query section -->
+      <section class="glass-card" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="filter-input-wrap">
+          <label for="export-search" class="filter-label">Search Filename</label>
+          <input type="text" id="export-search" class="field-value-input" style="padding:0.5rem;" placeholder="Search documents...">
+        </div>
+        
+        <div class="filter-input-wrap">
+          <label for="export-filter-type" class="filter-label">Filter Document Type</label>
+          <select id="export-filter-type" class="schema-select">
+            <option value="all">All Document Types</option>
+            <option value="invoice">Invoices</option>
+            <option value="receipt">Receipts</option>
+            <option value="id_card">Identity Cards</option>
+            <option value="transcript">Academic Transcripts</option>
+          </select>
+        </div>
+
+        <div class="filter-input-wrap">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <label for="export-filter-accuracy" class="filter-label">Min OCR Accuracy</label>
+            <span id="export-accuracy-val" style="font-size:0.8rem; color:var(--accent-cyan); font-weight:700;">90%</span>
+          </div>
+          <input type="range" id="export-filter-accuracy" min="90" max="100" value="90" style="accent-color:var(--accent-cyan); cursor:pointer; height:6px; background:rgba(255,255,255,0.1); border-radius:3px;">
+        </div>
+      </section>
+
+      <!-- Split: selection vs code block -->
+      <div class="export-split-layout">
+        
+        <!-- Selection column -->
+        <div class="glass-card" style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="glass-card-header">
+            <h3 class="card-title-tech">Selected Batch</h3>
+          </div>
+          <div style="flex:1; overflow-y:auto; max-height: 380px;" id="export-document-list">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Export Hub display -->
+        <div class="glass-card" style="display:flex; flex-direction:column; gap:1.25rem;">
+          
+          <div class="glass-card-header">
+            <h3 class="card-title-tech">Batch Transformer & Exporter</h3>
+            <button id="btn-download-export" class="btn-cyber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px;height:16px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Download Batch
+            </button>
+          </div>
+
+          <!-- Format selector -->
+          <div class="export-format-grid">
+            <button class="format-btn active" data-format="json">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+              </svg>
+              <span>JSON</span>
+            </button>
+            <button class="format-btn" data-format="xml">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+              </svg>
+              <span>XML</span>
+            </button>
+            <button class="format-btn" data-format="yaml">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3h16.5M3.75 9h16.5M3.75 18h16.5" />
+              </svg>
+              <span>YAML</span>
+            </button>
+            <button class="format-btn" data-format="csv">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+              </svg>
+              <span>CSV</span>
+            </button>
+          </div>
+
+          <!-- Code View -->
+          <div>
+            <div class="editor-header">
+              <span class="editor-lang" id="export-code-lang">JSON STRUCTURE</span>
+            </div>
+            <pre class="code-container" id="export-code-panel" style="height:250px;">// Mapped output will appear here</pre>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- API endpoints / Webhook details -->
+      <section class="glass-card">
+        <div class="glass-card-header">
+          <h3 class="card-title-tech">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+            </svg>
+            System Integration (API Endpoint Mocks)
+          </h3>
+        </div>
+        <div class="ocr-split-layout" style="grid-template-columns: 1.25fr 1fr; align-items:start;">
+          <div>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Developers can query the database or register webhook events for automated ingestion workflows. Below is a mock payload demonstrating how an external service interacts with the Transformo Docs system.</p>
+            <pre id="api-curl-mock" style="font-family: var(--font-code); font-size:0.75rem; color:#4ba3ff; background:rgba(0,0,0,0.3); padding:1rem; border-radius:var(--radius-sm); border: 1px solid var(--glass-border); line-height:1.5; white-space:pre-wrap; overflow-x:auto;"></pre>
+          </div>
+          <div style="font-size:0.8rem; color:var(--text-muted); display:flex; flex-direction:column; gap:0.5rem; border-left: 1px solid var(--glass-border); padding-left:1.5rem;">
+            <p><strong>Endpoint Details:</strong></p>
+            <p><span style="color:var(--accent-green); font-weight:700;">GET /v1/documents</span> - Return a list of all normalized documents in the collection.</p>
+            <p><span style="color:var(--accent-purple); font-weight:700;">POST /v1/webhooks</span> - Triggers on successful OCR extraction events. Transmits target-mapped schemas immediately to client databases.</p>
+            <p><strong>Supported Content types:</strong> application/json, application/xml, text/csv, application/x-yaml</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top:auto; padding: 2rem 0; border-top:1px solid var(--glass-border); text-align:center; font-size:0.75rem; color:var(--text-muted);">
+      <p>&copy; 2026 Transformo Docs. All rights reserved. Built for College Academic Project Purposes.</p>
+      <p style="color:var(--accent-cyan); font-family:var(--font-tech); font-size:0.7rem; margin-top:0.25rem;">PROJECT TITLE: EMPOWERING MACHINE READABLE DOCUMENT MANAGEMENT SYSTEM</p>
+    </footer>
+
+  </div>
+
+  <!-- Loading scripts -->
+  <script src="mockData.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
