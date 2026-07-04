@@ -40,26 +40,30 @@ Supported document types include:
 
 Transformo-Docs/
 │
-├── static/
-│ ├── css/
-│ ├── js/
-│ ├── images/
-│
-├── templates/
-│ ├── index.html
-│ ├── login.html
-│ ├── register.html
-│ ├── dashboard.html
-│ ├── upload.html
-│ ├── search.html
-│
-├── uploads/
-│
-├── extracted_text/
-│
 ├── app.py
 ├── requirements.txt
 ├── README.md
+│
+├── static/
+│   ├── css/
+│   ├── js/
+│   ├── images/
+│   └── uploads/
+│
+├── templates/
+│   ├── index.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── upload.html
+│   └── search.html
+│
+├── database/
+│   └── transformo_docs.db
+│
+├── extracted_text/
+│
+└── utils/
 
 # How to Use
 
@@ -99,6 +103,7 @@ Search / View / Download
 │
 ▼
 End
+
 
 # Advantages
 
