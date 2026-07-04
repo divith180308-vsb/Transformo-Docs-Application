@@ -76,34 +76,42 @@ Search documents instantly.
 Preview extracted text.
 Download processed document.
 
-# Workflow
+# Work Flow
 
-Start
-│
-▼
-User Login
-│
-▼
+START
+   │
+   ▼
+Login/Register
+   │
+   ▼
 Upload Document
-│
-▼
+   │
+   ▼
+Validate File
+   │
+   ▼
 OCR Processing
-│
-▼
+   │
+   ▼
 Extract Text
-│
-▼
-Machine Readable Format
-│
-▼
-Save to Database
-│
-▼
-Search / View / Download
-│
-▼
-End
-
+   │
+   ▼
+Convert to Machine-Readable Format
+   │
+   ▼
+Store in Database
+   │
+   ▼
+Search / View Documents
+   │
+   ▼
+Download Document
+   │
+   ▼
+Logout
+   │
+   ▼
+END
 
 # Advantages
 
